@@ -1,0 +1,184 @@
+/* math.css —— 口算闯关专属样式：算式、○图示、4 大按钮、数字键盘、进度条、连击、地图节点 */
+
+#play {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 14px;
+  padding: 18px 16px;
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+}
+
+/* 连击徽标 */
+.combo {
+  font-size: 18px;
+  font-weight: 800;
+  color: #e8651f;
+  background: #fff3e0;
+  border-radius: 999px;
+  padding: 4px 16px;
+  box-shadow: var(--shadow);
+}
+.combo.pop { animation: pop 0.35s ease-out; }
+
+/* 大算式 */
+.equation {
+  font-size: clamp(40px, 12vw, 72px);
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-align: center;
+  margin-top: 10px;
+  transition: color 0.15s, transform 0.15s;
+}
+.equation .eq-q { color: var(--accent); }
+.equation.eq-right { color: var(--good); transform: scale(1.06); }
+.equation.eq-right .eq-q { color: var(--good); }
+.equation.eq-wrong { color: var(--bad); }
+.equation.eq-wrong .eq-q { color: var(--bad); }
+
+/* ○图示 */
+.pictograph {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+  min-height: 30px;
+}
+.dot-group { display: flex; gap: 6px; flex-wrap: wrap; max-width: 200px; justify-content: center; }
+.dot {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--warn);
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.08);
+}
+.dot-x { background: #d6dee6; position: relative; }
+.dot-x::after {
+  content: "✕"; position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: var(--bad); font-weight: 900;
+}
+.dot-op { font-size: 26px; font-weight: 800; color: var(--ink-soft); }
+
+/* 反馈语 */
+.feedback {
+  min-height: 26px;
+  font-size: 18px;
+  font-weight: 700;
+}
+.feedback-right { color: var(--good); }
+.feedback-wrong { color: var(--bad); }
+
+/* 选择式：4 大按钮 */
+.choices {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  width: 100%;
+  max-width: 460px;
+}
+.answer-btn {
+  font-family: inherit;
+  font-size: clamp(28px, 8vw, 40px);
+  font-weight: 800;
+  color: var(--ink);
+  background: var(--card);
+  border: 3px solid var(--line);
+  border-radius: 18px;
+  padding: 22px 10px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform 0.1s, border-color 0.15s, background 0.15s;
+}
+.answer-btn:hover { border-color: var(--accent); transform: translateY(-3px); }
+.answer-btn:active { transform: scale(0.96); }
+.answer-btn.right { background: #e6f8f1; border-color: var(--good); color: var(--good); }
+.answer-btn.wrong { background: #fdecec; border-color: var(--bad); color: var(--bad); animation: shake 0.3s; }
+
+/* 输入式：答案框 + 数字键盘 */
+.input-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 360px;
+}
+.answer-box {
+  font-size: clamp(34px, 10vw, 52px);
+  font-weight: 800;
+  color: var(--accent-dark);
+  background: var(--card);
+  border: 3px solid var(--line);
+  border-radius: 16px;
+  min-width: 180px;
+  min-height: 64px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 6px 24px;
+  box-shadow: var(--shadow);
+}
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+}
+.key {
+  font-family: inherit;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--ink);
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: 14px;
+  min-height: 64px;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.08s, background 0.12s, border-color 0.12s;
+}
+.key:hover { border-color: var(--accent); }
+.key:active { transform: scale(0.94); background: #eef5fc; }
+.key-del { color: var(--bad); }
+.key-enter { color: #fff; background: var(--good); border-color: var(--good); }
+.key-enter:active { background: #38a98a; }
+
+/* 进度条 */
+.progress {
+  width: 100%;
+  max-width: 460px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+}
+.progress-bar {
+  flex: 1;
+  height: 14px;
+  background: #e2ebf3;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--good), var(--accent));
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+.progress-text { font-size: 14px; font-weight: 700; color: var(--ink-soft); white-space: nowrap; }
+
+/* 地图节点卡 */
+.map-node { width: 200px; }
+.map-node:disabled .diff-badge { color: var(--ink-soft); }
+
+@media (max-width: 820px) {
+  #play { padding: 12px; gap: 10px; }
+  .choices { max-width: 100%; }
+  .key { min-height: 56px; font-size: 24px; }
+}

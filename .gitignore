@@ -1,0 +1,9 @@
+# macOS
+.DS_Store
+
+# 本地开发过程文档，不入库
+DESIGN.md
+
+# 工具依赖（本项目零运行时依赖；tools 单测用 Node 内置框架，e2e 用可选的 puppeteer-core，本机自装、未装则跳过）
+tools/node_modules/
+node_modules/

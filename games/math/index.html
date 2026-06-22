@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>口算闯关大冒险 · 儿童游戏合集</title>
+  <link rel="stylesheet" href="../../css/base.css" />
+  <link rel="stylesheet" href="css/math.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- 顶栏（仅游戏中显示） -->
+    <header id="topbar" class="hidden">
+      <div class="brand">🧮 口算闯关</div>
+      <div id="stats">
+        <span id="stat-level" class="stat"></span>
+        <span id="stat-timer" class="stat hidden">⏱️ 00:00</span>
+      </div>
+      <div class="actions">
+        <button id="btn-restart" class="btn btn-ghost" type="button">重玩</button>
+        <button id="btn-map" class="btn btn-ghost" type="button">地图</button>
+        <button id="btn-read" class="btn btn-ghost" type="button" title="读题开关">📢</button>
+        <button id="btn-mute" class="btn btn-ghost" type="button" title="声音开关">🔊</button>
+      </div>
+    </header>
+
+    <!-- 选难度 -->
+    <section id="screen-diff" class="screen">
+      <a class="btn btn-ghost screen-back" href="../../index.html">← 合集</a>
+      <h1>🧮 口算闯关大冒险</h1>
+      <p class="subtitle">选个难度，闯地图、答口算，连对有连击，过关得星星</p>
+      <div id="diff-cards" class="card-row"></div>
+      <p class="tip">提示：低龄档有○图示和读题，越往上越有挑战。</p>
+    </section>
+
+    <!-- 选关卡（地图节点） -->
+    <section id="screen-map" class="screen hidden">
+      <button id="btn-back-diff" class="btn btn-ghost screen-back" type="button">← 换难度</button>
+      <h1 id="map-title">闯关地图</h1>
+      <p class="subtitle" id="map-subtitle"></p>
+      <div id="map-nodes" class="card-row"></div>
+      <p class="tip">提示：闯过一关，点亮下一个地点。</p>
+    </section>
+
+    <!-- 游戏区 -->
+    <main id="game" class="hidden">
+      <div id="play">
+        <div id="combo" class="combo hidden"></div>
+        <div id="equation" class="equation"></div>
+        <div id="pictograph" class="pictograph hidden"></div>
+        <div id="feedback" class="feedback"></div>
+
+        <div id="choices" class="choices"></div>
+
+        <div id="input-area" class="input-area hidden">
+          <div id="answer-box" class="answer-box" aria-live="polite">_</div>
+          <div id="keypad" class="keypad" role="group" aria-label="数字键盘">
+            <button class="key" type="button" data-k="7">7</button>
+            <button class="key" type="button" data-k="8">8</button>
+            <button class="key" type="button" data-k="9">9</button>
+            <button class="key" type="button" data-k="4">4</button>
+            <button class="key" type="button" data-k="5">5</button>
+            <button class="key" type="button" data-k="6">6</button>
+            <button class="key" type="button" data-k="1">1</button>
+            <button class="key" type="button" data-k="2">2</button>
+            <button class="key" type="button" data-k="3">3</button>
+            <button class="key key-del" type="button" data-k="del">⌫</button>
+            <button class="key" type="button" data-k="0">0</button>
+            <button class="key key-enter" type="button" data-k="enter">✓</button>
+          </div>
+        </div>
+
+        <div class="progress">
+          <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+          <span id="progress-text" class="progress-text"></span>
+        </div>
+      </div>
+    </main>
+
+    <!-- 通关结算 -->
+    <section id="win-screen" class="hidden">
+      <div class="win-card">
+        <div class="win-emoji">🎉</div>
+        <h2 id="win-title">过关啦！</h2>
+        <div id="win-stars" class="win-stars"></div>
+        <div id="win-stats"></div>
+        <div class="win-actions">
+          <button id="btn-next" class="btn btn-primary hidden" type="button">下一关 →</button>
+          <button id="btn-again" class="btn btn-ghost" type="button">再玩一次</button>
+          <button id="btn-retry-wrong" class="btn btn-ghost hidden" type="button">错题重练</button>
+          <button id="btn-to-map" class="btn btn-ghost" type="button">回地图</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="../../core/speaker.js"></script>
+  <script src="../../core/celebrate.js"></script>
+  <script src="../../core/router.js"></script>
+  <script src="../../core/progress.js"></script>
+  <script src="levels.js"></script>
+  <script src="problems.js"></script>
+  <script src="game.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

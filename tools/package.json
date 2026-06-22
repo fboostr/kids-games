@@ -1,0 +1,10 @@
+{
+  "name": "kids-games-tools",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "儿童游戏合集的纯逻辑单测（零第三方依赖，用 Node 内置 node:test + node:assert）",
+  "scripts": {
+    "test": "node --test test-problems.mjs test-levels.mjs test-engine.mjs test-themes.mjs test-progress.mjs test-schulte.mjs test-mole.mjs"
+  }
+}

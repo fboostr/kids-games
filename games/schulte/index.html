@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>舒尔特方格 · 儿童游戏合集</title>
+  <link rel="stylesheet" href="../../css/base.css" />
+  <link rel="stylesheet" href="css/schulte.css" />
+</head>
+<body>
+  <div id="app">
+    <header id="topbar" class="hidden">
+      <div class="brand">🔢 舒尔特方格</div>
+      <div id="stats">
+        <span id="sch-next" class="stat">👉 找 1</span>
+        <span id="stat-timer" class="stat">⏱️ 00:00</span>
+        <span id="stat-errors" class="stat">❌ 0</span>
+      </div>
+      <div class="actions">
+        <button id="btn-restart" class="btn btn-ghost" type="button">重玩</button>
+        <button id="btn-home" class="btn btn-ghost" type="button">合集</button>
+        <button id="btn-mute" class="btn btn-ghost" type="button" title="声音开关">🔊</button>
+      </div>
+    </header>
+
+    <section id="screen-tier" class="screen">
+      <a class="btn btn-ghost screen-back" href="../../index.html">← 合集</a>
+      <h1>🔢 舒尔特方格</h1>
+      <p class="subtitle">按 1、2、3… 的顺序，又快又准地把数字都点一遍，练专注力</p>
+      <div id="tier-cards" class="card-row"></div>
+      <p class="tip">提示：方格越大越难；计时冲你的最快纪录！</p>
+    </section>
+
+    <main id="game" class="hidden">
+      <div id="sch-board" class="sch-board"></div>
+    </main>
+
+    <section id="win-screen" class="hidden">
+      <div class="win-card">
+        <div class="win-emoji">🎉</div>
+        <h2>全部找到啦！</h2>
+        <div id="win-stats"></div>
+        <div class="win-actions">
+          <button id="btn-again" class="btn btn-primary" type="button">再玩一次</button>
+          <button id="btn-change-tier" class="btn btn-ghost" type="button">换难度</button>
+          <button id="btn-home2" class="btn btn-ghost" type="button">回合集</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="../../core/speaker.js"></script>
+  <script src="../../core/celebrate.js"></script>
+  <script src="../../core/router.js"></script>
+  <script src="../../core/progress.js"></script>
+  <script src="grid.js"></script>
+  <script src="game.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

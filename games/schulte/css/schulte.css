@@ -1,0 +1,58 @@
+/* schulte.css —— 舒尔特方格：网格 + 格子 + 已点/点错 */
+
+#game {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow: auto;
+}
+
+.sch-board {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 5), 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 560px;
+  aspect-ratio: 1;
+  margin: auto;
+}
+.sch-board.dense { gap: 8px; max-width: 620px; }
+
+.sch-cell {
+  font-family: inherit;
+  font-weight: 800;
+  font-size: clamp(20px, 7vw, 40px);
+  color: var(--ink);
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: 14px;
+  cursor: pointer;
+  touch-action: manipulation;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.08s, background 0.15s, border-color 0.15s, color 0.15s, opacity 0.2s;
+}
+.sch-cell:hover { border-color: var(--accent); }
+.sch-cell:active { transform: scale(0.94); }
+.sch-cell.found {
+  background: #e6f8f1;
+  border-color: var(--good);
+  color: var(--good);
+  opacity: 0.55;
+  cursor: default;
+}
+.sch-cell.wrong {
+  background: #fdecec;
+  border-color: var(--bad);
+  color: var(--bad);
+  animation: shake 0.3s;
+}
+
+@media (max-width: 820px) {
+  #game { padding: 8px; }
+  .sch-board { gap: 7px; }
+}

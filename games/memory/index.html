@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>翻翻乐 · 儿童游戏合集</title>
+  <link rel="stylesheet" href="../../css/base.css" />
+  <link rel="stylesheet" href="css/memory.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- 顶栏（仅游戏中显示） -->
+    <header id="topbar" class="hidden">
+      <div class="brand">🃏 翻翻乐</div>
+      <div id="stats">
+        <span id="stat-theme" class="stat"></span>
+        <span id="stat-steps" class="stat">步数 0</span>
+        <span id="stat-timer" class="stat hidden">⏱️ 00:00</span>
+        <span id="stat-combo" class="stat hidden"></span>
+      </div>
+      <div class="actions">
+        <button id="btn-restart" class="btn btn-ghost" type="button">重玩</button>
+        <button id="btn-themes" class="btn btn-ghost" type="button">主菜单</button>
+        <button id="btn-mute" class="btn btn-ghost" type="button" title="声音开关">🔊</button>
+      </div>
+    </header>
+
+    <!-- 选主题 -->
+    <section id="screen-theme" class="screen">
+      <a class="btn btn-ghost screen-back" href="../../index.html">← 合集</a>
+      <h1>🃏 翻翻乐</h1>
+      <p class="subtitle">翻牌找一对！一套引擎八个主题，认动物水果、字词拼音、国旗省会</p>
+      <div id="theme-cards" class="card-row"></div>
+      <p class="tip">提示：选一个主题，再选难度。配对成功会读出它的名字。</p>
+    </section>
+
+    <!-- 选难度 -->
+    <section id="screen-tier" class="screen hidden">
+      <button id="btn-back-theme" class="btn btn-ghost screen-back" type="button">← 换主题</button>
+      <h1 id="tier-title">选难度</h1>
+      <p class="subtitle" id="tier-subtitle"></p>
+      <div id="tier-cards" class="card-row"></div>
+      <p class="tip">提示：牌越多越难；高难度会计时、配对后消失腾位。</p>
+    </section>
+
+    <!-- 游戏区 -->
+    <main id="game" class="hidden">
+      <div id="board" class="mem-board"></div>
+    </main>
+
+    <!-- 通关结算 -->
+    <section id="win-screen" class="hidden">
+      <div class="win-card">
+        <div class="win-emoji">🎉</div>
+        <h2>全部配对成功！</h2>
+        <div id="win-stats"></div>
+        <div class="win-actions">
+          <button id="btn-again" class="btn btn-primary" type="button">再玩一次</button>
+          <button id="btn-change-tier" class="btn btn-ghost" type="button">换难度</button>
+          <button id="btn-change-theme" class="btn btn-ghost" type="button">换主题</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="../../core/speaker.js"></script>
+  <script src="../../core/celebrate.js"></script>
+  <script src="../../core/router.js"></script>
+  <script src="../../core/progress.js"></script>
+  <script src="engine.js"></script>
+  <script src="themes.js"></script>
+  <script src="flags.js"></script>
+  <script src="data/provinces-capitals.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

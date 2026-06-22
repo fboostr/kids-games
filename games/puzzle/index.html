@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>拼拼中国 · 中国地图拼图</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- 顶部栏 -->
+    <header id="topbar" class="hidden">
+      <div class="brand">🧩 拼拼中国</div>
+      <div id="stats">
+        <span id="stat-level" class="stat"></span>
+        <span id="stat-progress" class="stat"></span>
+        <span id="stat-timer" class="stat hidden">⏱️ 00:00</span>
+        <span id="stat-errors" class="stat hidden">❌ 0</span>
+      </div>
+      <div class="actions">
+        <button id="btn-restart" class="btn btn-ghost" type="button">重玩</button>
+        <button id="btn-home" class="btn btn-ghost" type="button">主菜单</button>
+        <button id="btn-mute" class="btn btn-ghost" type="button" title="开关读音">🔊</button>
+      </div>
+    </header>
+
+    <!-- 游戏区 -->
+    <main id="game" class="hidden">
+      <div id="board-wrap">
+        <svg id="board" viewBox="0 0 1000 820" aria-label="中国地图拼图棋盘"></svg>
+      </div>
+      <aside id="tray-wrap">
+        <div id="tray-hint">把右边的拼块拖到地图上的正确位置 👇</div>
+        <div id="tray"></div>
+      </aside>
+    </main>
+
+    <!-- 首页：选玩法 -->
+    <section id="start-screen" class="screen">
+      <a class="btn btn-ghost screen-back" href="../../index.html">← 合集</a>
+      <h1>🧩 拼拼中国</h1>
+      <p class="subtitle">拖一拖，把每个地方送回家，认识我们的祖国地图 <span class="subtitle-flag"></span></p>
+      <div id="mode-cards"></div>
+      <p class="tip">提示：先选玩法，再开始拼图。</p>
+    </section>
+
+    <!-- 拼全国：选难度 -->
+    <section id="difficulty-screen" class="screen hidden">
+      <button id="btn-back-diff" class="btn btn-ghost screen-back" type="button">← 返回</button>
+      <h1>拼全国 · 选难度</h1>
+      <p class="subtitle">把 34 个省级行政区拼回祖国版图</p>
+      <div id="difficulty-cards"></div>
+      <p class="tip">提示：低难度有拼音和读音，越往上提示越少、越有挑战。</p>
+    </section>
+
+    <!-- 分省拼图：选省份 -->
+    <section id="province-screen" class="screen hidden">
+      <button id="btn-back-prov" class="btn btn-ghost screen-back" type="button">← 返回</button>
+      <h1>分省拼图 · 选省份</h1>
+      <p class="subtitle">选一个省，把它的各个地级市拼成全省地图</p>
+      <div id="province-cards"></div>
+      <p class="tip">提示：棋盘只给省的外轮廓，靠地市的形状判断它在哪儿。</p>
+    </section>
+
+    <!-- 通关 -->
+    <section id="win-screen" class="hidden">
+      <div class="win-card">
+        <div class="win-emoji">🎉</div>
+        <h2>太棒啦，拼好啦！</h2>
+        <div id="win-stats"></div>
+        <div class="win-actions">
+          <button id="btn-again" class="btn btn-primary" type="button">再玩一次</button>
+          <button id="btn-change" class="btn btn-ghost" type="button">回主菜单</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- 数据与脚本（经典脚本，便于 file:// 直接双击打开） -->
+  <script src="data/provinces.js"></script>
+  <!-- 分省拼图数据（每省一文件，按 adcode）。新增省份：在 tools/build-provinces.mjs 的 PROVINCES 表加一行后跑该脚本，下面标记区间会被自动重写，无需手改 -->
+  <!-- puzzles:start —— 由 tools/build-provinces.mjs 自动维护，勿手改 -->
+  <script src="data/puzzles/130000.js"></script>
+  <script src="data/puzzles/140000.js"></script>
+  <script src="data/puzzles/150000.js"></script>
+  <script src="data/puzzles/210000.js"></script>
+  <script src="data/puzzles/220000.js"></script>
+  <script src="data/puzzles/230000.js"></script>
+  <script src="data/puzzles/320000.js"></script>
+  <script src="data/puzzles/330000.js"></script>
+  <script src="data/puzzles/340000.js"></script>
+  <script src="data/puzzles/350000.js"></script>
+  <script src="data/puzzles/360000.js"></script>
+  <script src="data/puzzles/370000.js"></script>
+  <script src="data/puzzles/410000.js"></script>
+  <script src="data/puzzles/420000.js"></script>
+  <script src="data/puzzles/430000.js"></script>
+  <script src="data/puzzles/440000.js"></script>
+  <script src="data/puzzles/450000.js"></script>
+  <script src="data/puzzles/510000.js"></script>
+  <script src="data/puzzles/520000.js"></script>
+  <script src="data/puzzles/530000.js"></script>
+  <script src="data/puzzles/540000.js"></script>
+  <script src="data/puzzles/610000.js"></script>
+  <script src="data/puzzles/620000.js"></script>
+  <script src="data/puzzles/630000.js"></script>
+  <script src="data/puzzles/640000.js"></script>
+  <script src="data/puzzles/650000.js"></script>
+  <!-- puzzles:end -->
+  <script src="js/difficulty.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

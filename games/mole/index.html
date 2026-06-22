@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>打地鼠口算 · 儿童游戏合集</title>
+  <link rel="stylesheet" href="../../css/base.css" />
+  <link rel="stylesheet" href="css/mole.css" />
+</head>
+<body>
+  <div id="app">
+    <header id="topbar" class="hidden">
+      <div class="brand">🔨 打地鼠口算</div>
+      <div id="stats">
+        <span id="stat-score" class="stat">⭐ 0</span>
+        <span id="stat-timer" class="stat">⏳ 60</span>
+        <span id="stat-combo" class="stat hidden"></span>
+      </div>
+      <div class="actions">
+        <button id="btn-restart" class="btn btn-ghost" type="button">重玩</button>
+        <button id="btn-home" class="btn btn-ghost" type="button">合集</button>
+        <button id="btn-mute" class="btn btn-ghost" type="button" title="声音开关">🔊</button>
+      </div>
+    </header>
+
+    <section id="screen-diff" class="screen">
+      <a class="btn btn-ghost screen-back" href="../../index.html">← 合集</a>
+      <h1>🔨 打地鼠口算</h1>
+      <p class="subtitle">算一算！拍中举着「正确答案」的那只地鼠，限时 60 秒比谁拍得多</p>
+      <div id="diff-cards" class="card-row"></div>
+      <p class="tip">提示：地鼠会换洞，盯准数字别拍错；连击越高越威风。</p>
+    </section>
+
+    <main id="game" class="hidden">
+      <div id="mole-wrap">
+        <div id="equation" class="equation"></div>
+        <div id="mole-field" class="mole-field"></div>
+      </div>
+    </main>
+
+    <section id="win-screen" class="hidden">
+      <div class="win-card">
+        <div class="win-emoji">🏆</div>
+        <h2>时间到！</h2>
+        <div id="win-stats"></div>
+        <div class="win-actions">
+          <button id="btn-again" class="btn btn-primary" type="button">再玩一次</button>
+          <button id="btn-change-diff" class="btn btn-ghost" type="button">换难度</button>
+          <button id="btn-home2" class="btn btn-ghost" type="button">回合集</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="../../core/speaker.js"></script>
+  <script src="../../core/celebrate.js"></script>
+  <script src="../../core/router.js"></script>
+  <script src="../../core/progress.js"></script>
+  <script src="../math/problems.js"></script>
+  <script src="round.js"></script>
+  <script src="game.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

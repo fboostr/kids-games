@@ -1,0 +1,360 @@
+/* 拼拼中国 —— 样式 */
+:root {
+  --bg1: #eaf4ff;
+  --bg2: #fdf3e7;
+  --ink: #2b3a4a;
+  --ink-soft: #6b7c8d;
+  --card: #ffffff;
+  --line: #d7e2ec;
+  --accent: #5b9be8;
+  --accent-dark: #3f7fcf;
+  --shadow: 0 6px 20px rgba(40, 70, 110, 0.12);
+  --radius: 16px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  font-family: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", system-ui,
+               "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+  color: var(--ink);
+  background: linear-gradient(135deg, var(--bg1), var(--bg2));
+  -webkit-user-select: none;
+  user-select: none;
+  overflow-x: hidden;
+}
+
+#app { height: 100vh; height: 100dvh; overflow: hidden; display: flex; flex-direction: column; }
+.hidden { display: none !important; }
+
+/* ---------- 顶部栏 ---------- */
+#topbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 18px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  flex-wrap: wrap;
+}
+.brand { font-size: 20px; font-weight: 800; }
+#stats { display: flex; gap: 10px; flex: 1; flex-wrap: wrap; }
+.stat {
+  background: #eef5fc;
+  color: var(--accent-dark);
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.actions { display: flex; gap: 8px; }
+
+.btn {
+  border: none;
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.15s ease, background 0.15s;
+}
+.btn:active { transform: scale(0.95); }
+.btn-ghost { background: #eef5fc; color: var(--accent-dark); }
+.btn-ghost:hover { background: #dcebfb; }
+.btn-primary { background: var(--accent); color: #fff; box-shadow: var(--shadow); }
+.btn-primary:hover { background: var(--accent-dark); }
+
+/* ---------- 游戏区 ---------- */
+#game {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  align-items: stretch;
+}
+#board-wrap {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#board {
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+#tray-wrap {
+  width: 270px;
+  flex-shrink: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 12px;
+}
+#tray-hint {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-bottom: 10px;
+  text-align: center;
+  line-height: 1.4;
+}
+#tray {
+  flex: 1;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  align-content: start;
+}
+
+/* 托盘拼块 */
+.piece {
+  background: #f7fafd;
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  padding: 8px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  cursor: grab;
+  transition: transform 0.1s, box-shadow 0.15s, border-color 0.15s;
+}
+.piece:hover { border-color: var(--accent); box-shadow: var(--shadow); transform: translateY(-2px); }
+.piece.dragging { opacity: 0.35; }
+.piece-svg { width: 100%; height: 64px; overflow: visible; }
+.piece-path { stroke: #fff; stroke-width: 0.8; stroke-linejoin: round; }
+.piece-name { font-size: 15px; font-weight: 700; }
+.piece-pinyin { font-size: 11px; color: var(--ink-soft); }
+
+/* 拖动浮层 */
+.drag-clone {
+  position: fixed;
+  z-index: 1000;
+  pointer-events: none;
+  overflow: visible;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.25));
+  left: 0; top: 0;
+}
+.drag-clone .piece-path { stroke: #fff; stroke-width: 1.2; }
+.drag-clone.miss { animation: shake 0.3s; }
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-7px) rotate(-4deg); }
+  75% { transform: translateX(7px) rotate(4deg); }
+}
+
+/* ---------- 棋盘图层 ---------- */
+.slot {
+  fill: #e7edf3;
+  stroke: #c4d2df;
+  stroke-width: 1;
+  stroke-linejoin: round;
+}
+.slot-active {
+  fill: #fff3d6;
+  stroke: #f4b942;
+  stroke-width: 1.6;
+  animation: glow 1.4s ease-in-out infinite;
+}
+@keyframes glow {
+  0%, 100% { fill: #fff3d6; }
+  50% { fill: #ffe7a8; }
+}
+.slot-done { opacity: 0; }
+/* 困难档：国界外框剑影（同色填充+同色描边，缝合省界内线，叠成整块国土轮廓） */
+.silhouette {
+  fill: #e4ebf2;
+  stroke: #e4ebf2;
+  stroke-width: 0.75;
+  stroke-linejoin: round;
+}
+/* 分省：仅一条省最外轮廓作参考框 */
+.province-outline {
+  fill: #eef3f8;
+  stroke: #aebfce;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+.slot-name {
+  font-size: 13px;
+  fill: #9aa9b8;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+}
+.placed {
+  stroke: #ffffff;
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+}
+.placed.pop { animation: pop 0.45s ease-out; transform-box: fill-box; transform-origin: center; }
+@keyframes pop {
+  0% { transform: scale(0.6); opacity: 0.2; }
+  60% { transform: scale(1.12); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+/* 南海诸岛装饰 */
+.nanhai-box { fill: #f1f6fb; stroke: #c4d2df; stroke-width: 1.2; rx: 6; }
+.nanhai-path { fill: #d7e3ef; stroke: #b7c7d6; stroke-width: 0.6; }
+.nanhai-label { font-size: 11px; fill: #8a99a8; text-anchor: middle; }
+
+/* ---------- 开始 / 选玩法 / 选难度 / 选省份 ---------- */
+.screen {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px 18px;
+  gap: 6px;
+  position: relative;
+}
+.screen h1 { font-size: 40px; margin: 0; }
+.subtitle { color: var(--ink-soft); font-size: 16px; margin: 4px 0 18px; }
+.tip { color: var(--ink-soft); font-size: 13px; margin-top: 18px; }
+
+/* 返回按钮（选难度 / 选省份左上角） */
+.screen-back { position: absolute; top: 18px; left: 18px; }
+
+#difficulty-cards,
+#mode-cards {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* 玩法卡（首页两张，略宽） */
+.mode-card { width: 260px; }
+.mode-national:hover { border-color: #ec7d7d; }
+.mode-province:hover { border-color: #8bc34a; }
+
+/* 省份选择网格 */
+#province-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 14px;
+  width: 100%;
+  max-width: 720px;
+}
+.prov-card {
+  background: var(--card);
+  border: 3px solid transparent;
+  border-radius: 16px;
+  padding: 18px 10px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform 0.12s, border-color 0.15s;
+  font-family: inherit;
+  color: inherit;
+}
+.prov-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+.prov-name { font-size: 22px; font-weight: 800; }
+.prov-count { font-size: 12px; color: var(--ink-soft); margin-top: 4px; }
+.diff-card {
+  width: 220px;
+  background: var(--card);
+  border: 3px solid transparent;
+  border-radius: 20px;
+  padding: 22px 18px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform 0.12s, border-color 0.15s;
+  text-align: center;
+  font-family: inherit;
+  color: inherit;
+}
+.diff-card:hover { transform: translateY(-6px); }
+.diff-easy:hover { border-color: #4cc1a1; }
+.diff-medium:hover { border-color: #5b9be8; }
+.diff-hard:hover { border-color: #ec7d7d; }
+.diff-emoji { font-size: 48px; }
+
+/* 国旗 SVG：随容器字号缩放，固定 3:2 比例，替代不可渲染的国旗 emoji */
+.cn-flag {
+  display: inline-block;
+  height: 1em;          /* 在 .diff-emoji(font-size:48px) 中即 48px；文案中即正文字号 */
+  width: auto;
+  aspect-ratio: 3 / 2;
+  vertical-align: -0.15em;
+  border-radius: 2px;
+}
+.diff-emoji .cn-flag { vertical-align: middle; }  /* 大卡片图标垂直居中 */
+.diff-label { font-size: 24px; font-weight: 800; margin-top: 4px; }
+.diff-age { font-size: 13px; color: var(--accent-dark); font-weight: 600; margin: 4px 0 10px; }
+.diff-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+
+/* ---------- 通关 ---------- */
+#win-screen {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 40, 70, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+}
+.win-card {
+  background: #fff;
+  border-radius: 24px;
+  padding: 32px 36px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 420px;
+  animation: pop 0.4s ease-out;
+}
+.win-emoji { font-size: 64px; }
+.win-card h2 { margin: 6px 0 12px; font-size: 26px; }
+.win-line { color: var(--ink-soft); }
+.win-metrics { display: flex; gap: 18px; justify-content: center; margin: 14px 0; font-weight: 700; }
+.win-actions { display: flex; gap: 12px; justify-content: center; margin-top: 18px; }
+
+/* 彩屑 */
+.confetti { position: fixed; inset: 0; pointer-events: none; z-index: 90; overflow: hidden; }
+.confetti i {
+  position: absolute;
+  top: -20px;
+  width: 10px;
+  height: 14px;
+  border-radius: 2px;
+  animation: fall 2.4s linear forwards;
+}
+@keyframes fall {
+  to { transform: translateY(105vh) rotate(540deg); opacity: 0.9; }
+}
+
+/* ---------- 响应式：窄屏把托盘移到下方 ---------- */
+@media (max-width: 820px) {
+  #game { flex-direction: column; }
+  #board-wrap { flex: 1; }
+  #tray-wrap { width: 100%; height: 34vh; flex: none; flex-shrink: 0; }
+  #tray { grid-template-columns: repeat(4, 1fr); }
+  #difficulty-cards { gap: 12px; }
+  .diff-card { width: 88%; max-width: 320px; }
+}
